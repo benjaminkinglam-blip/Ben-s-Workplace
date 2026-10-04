@@ -471,9 +471,6 @@
     <div class="inter-kicker" id="inKicker">第 1 站 / 共 4 站</div>
     <div class="inter-title" id="inTitle">起步探索</div>
     <div class="inter-desc" id="inDesc"></div>
-    <div class="inter-tip">📏 每道题都给了具体参考量：<b>时间</b>（几分钟 / 几小时 / 几天）、<b>人数</b>（几人以上）、<b>事件量级</b>（小事 / 大事）。按最接近你真实情况的那一档选即可。<br>
-      ↔️ 选项是<b>横向</b>排的：左边「完全不符合」，右边「完全符合」，中间「一般」。它表示你站在哪个位置，<b>不是高低好坏</b>。<br>
-      ⏳ 这里<b>没有计时、没有连击</b>，可以停下来想，也可以随时「返回上一题」；每过 5 题小海獭会出来陪你一下。</div>
     <div class="dots" id="inDots"></div>
     <div class="inter-bar"><i></i></div>
     <button class="btn btn-primary" onclick="beginUnit()">开始这一站</button>
@@ -887,12 +884,18 @@ function otterSVG(pose){
       '</linearGradient>'+
     '</defs>';
 
+  /* 圆眼 + 高光（贴近照片里的小爪水獭） */
+  const EYE_ROUND =
+    '<circle cx="47" cy="50" r="5.4" fill="#3a3f47"/>'+
+    '<circle cx="45.2" cy="48.1" r="1.9" fill="#ffffff"/>'+
+    '<circle cx="73" cy="50" r="5.4" fill="#3a3f47"/>'+
+    '<circle cx="71.2" cy="48.1" r="1.9" fill="#ffffff"/>';
   const EYE_HAPPY =
-    '<path d="M44 48 q4.6 -6.5 9.2 0" stroke="#343941" stroke-width="2.8" fill="none" stroke-linecap="round"/>'+
-    '<path d="M66.8 48 q4.6 -6.5 9.2 0" stroke="#343941" stroke-width="2.8" fill="none" stroke-linecap="round"/>';
+    '<path d="M42 50 q5 -7 10 0" stroke="#343941" stroke-width="2.8" fill="none" stroke-linecap="round"/>'+
+    '<path d="M68 50 q5 -7 10 0" stroke="#343941" stroke-width="2.8" fill="none" stroke-linecap="round"/>';
   const EYE_STAR =
-    '<path d="M48.8 42.6 l2 4.6 4.6 2 -4.6 2 -2 4.6 -2 -4.6 -4.6 -2 4.6 -2z" fill="#f59e0b"/>'+
-    '<path d="M71.2 42.6 l2 4.6 4.6 2 -4.6 2 -2 4.6 -2 -4.6 -4.6 -2 4.6 -2z" fill="#f59e0b"/>';
+    '<path d="M47 43.4 l2.1 4.8 4.8 2.1 -4.8 2.1 -2.1 4.8 -2.1 -4.8 -4.8 -2.1 4.8 -2.1z" fill="#f59e0b"/>'+
+    '<path d="M73 43.4 l2.1 4.8 4.8 2.1 -4.8 2.1 -2.1 4.8 -2.1 -4.8 -4.8 -2.1 4.8 -2.1z" fill="#f59e0b"/>';
   const spark = (x,y,s)=> '<g class="ot-spark" style="animation-delay:'+((x%7)*0.1).toFixed(1)+'s">'+
     '<path d="M'+x+' '+(y-6*s)+' l'+(2*s).toFixed(2)+' '+(4.6*s).toFixed(2)+' '+(4.6*s).toFixed(2)+' '+(2*s).toFixed(2)+
     ' -'+(4.6*s).toFixed(2)+' '+(2*s).toFixed(2)+' -'+(2*s).toFixed(2)+' '+(4.6*s).toFixed(2)+
@@ -906,27 +909,26 @@ function otterSVG(pose){
     '<ellipse cx="60" cy="96" rx="27" ry="23" fill="'+DARK+'"/>'+
     /* 浅色胸腹 */
     '<ellipse cx="60" cy="100" rx="16.5" ry="16" fill="'+BELLY+'"/>'+
-    /* 耳朵（含内耳） */
-    '<circle cx="42" cy="36" r="8" fill="'+DARK+'"/><circle cx="42" cy="36" r="4.4" fill="#8f959f"/>'+
-    '<circle cx="78" cy="36" r="8" fill="'+DARK+'"/><circle cx="78" cy="36" r="4.4" fill="#8f959f"/>'+
-    /* 头 */
-    '<ellipse cx="60" cy="56" rx="31" ry="28" fill="'+FUR+'"/>'+
+    /* 耳朵：小圆，长在头部两侧偏上（照片里的特征） */
+    '<circle cx="30.5" cy="41" r="7" fill="'+DARK+'"/><circle cx="30.5" cy="41" r="3.8" fill="#8f959f"/>'+
+    '<circle cx="89.5" cy="41" r="7" fill="'+DARK+'"/><circle cx="89.5" cy="41" r="3.8" fill="#8f959f"/>'+
+    /* 圆头圆脑 */
+    '<ellipse cx="60" cy="54" rx="32" ry="30" fill="'+FUR+'"/>'+
     /* 头顶毛纹 */
-    '<path d="M49 34 q5 -4 10 -2 M63 32 q5 1 8 5" stroke="#b8bdc6" stroke-width="1.3" fill="none" stroke-linecap="round"/>'+
+    '<path d="M48 31 q6 -4 12 -2 M64 29 q6 1 9 5" stroke="#b8bdc6" stroke-width="1.3" fill="none" stroke-linecap="round"/>'+
     /* 眼上浅斑（海獭特征） */
-    '<ellipse cx="48.6" cy="41.6" rx="6.6" ry="3.5" fill="#dee2e7"/>'+
-    '<ellipse cx="71.4" cy="41.6" rx="6.6" ry="3.5" fill="#dee2e7"/>'+
-    /* 两侧浅色脸颊 */
-    '<ellipse cx="45" cy="66" rx="14" ry="11.5" fill="'+BELLY+'"/>'+
-    '<ellipse cx="75" cy="66" rx="14" ry="11.5" fill="'+BELLY+'"/>'+
+    '<ellipse cx="47" cy="42.6" rx="5.6" ry="2.8" fill="#dee2e7"/>'+
+    '<ellipse cx="73" cy="42.6" rx="5.6" ry="2.8" fill="#dee2e7"/>'+
+    /* 宽大的浅色吻部（合并成一块，不再分两颊） */
+    '<ellipse cx="60" cy="70" rx="22" ry="14" fill="'+BELLY+'"/>'+
     /* 大鼻头 + 高光 */
-    '<ellipse cx="60" cy="59" rx="8" ry="5.8" fill="#4d525a"/>'+
-    '<ellipse cx="57.3" cy="57.3" rx="2.5" ry="1.5" fill="#71767f"/>'+
+    '<ellipse cx="60" cy="62" rx="9" ry="6.4" fill="#4d525a"/>'+
+    '<ellipse cx="56.7" cy="59.5" rx="3" ry="1.8" fill="#767b84"/>'+
     /* 微笑 */
-    '<path d="M52 73 q8 7 16 0" stroke="#7d838d" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+
+    '<path d="M52 75 q8 7 16 0" stroke="#7d838d" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+
     /* 胡须 */
-    '<path d="M33 64 l-12 -4 M33 68.5 l-13 1 M33 73 l-11 6" stroke="#9aa1ab" stroke-width="1.6" stroke-linecap="round" fill="none"/>'+
-    '<path d="M87 64 l12 -4 M87 68.5 l13 1 M87 73 l11 6" stroke="#9aa1ab" stroke-width="1.6" stroke-linecap="round" fill="none"/>';
+    '<path d="M40 66 l-15 -5 M40 71 l-16 1 M40 76 l-14 7" stroke="#9aa1ab" stroke-width="1.6" stroke-linecap="round" fill="none"/>'+
+    '<path d="M80 66 l15 -5 M80 71 l16 1 M80 76 l14 7" stroke="#9aa1ab" stroke-width="1.6" stroke-linecap="round" fill="none"/>';
 
   /* —— 送礼姿态：小鱼 + 分析报告 —— */
   if(pose==='congratulation'){
@@ -960,7 +962,7 @@ function otterSVG(pose){
       '</svg>';
   }
 
-  let eyes = EYE_HAPPY, arms = '', extra = '';
+  let eyes = EYE_ROUND, arms = '', extra = '';
   if(pose==='bravo'){
     arms = '<g class="ot-armL"><ellipse cx="32" cy="86" rx="7.5" ry="11" fill="'+DARK+'" transform="rotate(16 32 86)"/></g>'+
            '<g class="ot-armR"><ellipse cx="88" cy="86" rx="7.5" ry="11" fill="'+DARK+'" transform="rotate(-16 88 86)"/></g>';
@@ -1342,14 +1344,16 @@ function showInterlude(i){
   $('interOt').innerHTML = otterSVG(i===3?'bravo':'excellent');
   $('inKicker').textContent='第 '+(i+1)+' 站 / 共 4 站';
   $('inTitle').textContent=s.title.replace(/^第 \d 站 · /,'');
-  $('inDesc').textContent=s.desc+' · 共 '+PER_UNIT+' 题';
+  $('inDesc').textContent='陪你探索自己的气质特点';
   const done=doneUnits();
   $('inDots').innerHTML=[0,1,2,3].map(k=>'<div class="dot-i '+(done[k]?'done':(k===i?'now':''))+'"></div>').join('');
-  const bar=document.querySelector('.inter-bar i'); bar.style.animation='none'; void bar.offsetWidth; bar.style.animation='';
+  const bar=document.querySelector('.inter-bar i');
+  bar.style.animation='none'; void bar.offsetWidth;
+  bar.style.animation='grow 5.2s linear forwards';
   $('interlude').classList.add('active');
   Sound.whoosh(); setTimeout(()=> Sound.intro(),260);
   clearTimeout(window.__inT);
-  window.__inT=setTimeout(()=>{ if($('interlude').classList.contains('active')) beginUnit(); },8000);
+  window.__inT=setTimeout(()=>{ if($('interlude').classList.contains('active')) beginUnit(); },5200);
 }
 function beginUnit(){
   clearTimeout(window.__inT);
